@@ -1,0 +1,41 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Open Unity Project",
+			"type": "shell",
+			"command": "open",
+			"args": [
+				"-a",
+				"Unity",
+				"."
+			],
+			"group": "build",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Build for Quest 3",
+			"type": "shell",
+			"command": "./build_android.sh",
+			"args": [],
+			"group": "build",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Build and Deploy to Quest 3",
+			"type": "shell",
+			"command": "adb",
+			"args": [
+				"install",
+				"-r",
+				"Builds/Quest3CubeProject.apk"
+			],
+			"group": "build",
+			"isBackground": false,
+			"problemMatcher": [],
+			"dependsOn": "Build for Quest 3"
+		}
+	]
+}
