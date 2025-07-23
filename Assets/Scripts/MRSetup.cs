@@ -116,7 +116,7 @@ public class MRSetup : MonoBehaviour
     private void HandleMRInteractions()
     {
         // Check for XR input (controllers or hands)
-        var inputDevices = new List<InputDevice>();
+        List<InputDevice> inputDevices = new List<InputDevice>();
         InputDevices.GetDevices(inputDevices);
         
         foreach (var device in inputDevices)

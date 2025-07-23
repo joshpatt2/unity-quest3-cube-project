@@ -122,7 +122,7 @@ public class XRImmersiveInitializer : MonoBehaviour
     private XRInputSubsystem GetInputSubsystem()
     {
         var inputSubsystems = new System.Collections.Generic.List<XRInputSubsystem>();
-        SubsystemManager.GetInstances(inputSubsystems);
+        SubsystemManager.GetSubsystems(inputSubsystems);
         
         if (inputSubsystems.Count > 0)
         {

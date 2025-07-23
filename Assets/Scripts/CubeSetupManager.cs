@@ -22,6 +22,8 @@ public class CubeSetupManager : MonoBehaviour
     
     private void SetupCube()
     {
+        Debug.Log("[CubeSetupManager] Starting cube setup...");
+        
         // Find or create the cube
         cube = GameObject.Find("Cube");
         
@@ -42,7 +44,10 @@ public class CubeSetupManager : MonoBehaviour
         // Configure for MR visibility
         ConfigureForMR();
         
-        Debug.Log($"Cube setup complete! Position: {cube.transform.position}, Scale: {cube.transform.localScale}");
+        Debug.Log($"[CubeSetupManager] Cube setup complete! Position: {cube.transform.position}, Scale: {cube.transform.localScale}");
+        
+        // Add a delayed verification to check if rotation is actually working
+        Invoke(nameof(VerifyRotation), 2f);
     }
     
     private void CreateNewCube()
@@ -73,10 +78,10 @@ public class CubeSetupManager : MonoBehaviour
             rotatorScript = cube.AddComponent<CubeRotator>();
         }
         
-        // Configure rotation speed
-        rotatorScript.rotationSpeed = new Vector3(0, rotationSpeed, 0);
+        // Configure rotation speed (simplified - only Y-axis rotation)
+        rotatorScript.rotationSpeed = rotationSpeed;
         
-        Debug.Log("Cube rotation configured - cube should now be spinning!");
+        Debug.Log($"Cube rotation configured! Speed: {rotationSpeed} degrees/second on Y-axis");
     }
     
     private void ConfigureForMR()
@@ -166,7 +171,7 @@ public class CubeSetupManager : MonoBehaviour
         rotationSpeed = newSpeed;
         if (rotatorScript != null)
         {
-            rotatorScript.rotationSpeed = new Vector3(0, rotationSpeed, 0);
+            rotatorScript.rotationSpeed = newSpeed;
             Debug.Log($"Rotation speed changed to {rotationSpeed}");
         }
     }
@@ -178,6 +183,17 @@ public class CubeSetupManager : MonoBehaviour
         {
             rotatorScript.enabled = !rotatorScript.enabled;
             Debug.Log($"Cube rotation {(rotatorScript.enabled ? "enabled" : "disabled")}");
+        }
+    }
+    
+    // Verification method to check if rotation is working
+    private void VerifyRotation()
+    {
+        if (cube != null && rotatorScript != null)
+        {
+            Vector3 currentRotation = cube.transform.rotation.eulerAngles;
+            Debug.Log($"[CubeSetupManager] Verification - Cube rotation after 2s: {currentRotation}");
+            Debug.Log($"[CubeSetupManager] CubeRotator state - enabled: {rotatorScript.enabled}, speed: {rotatorScript.rotationSpeed}");
         }
     }
 }
