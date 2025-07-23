@@ -13,10 +13,9 @@ public class AppInitializer : MonoBehaviour
     
     private void Start()
     {
-        if (autoSetupOnStart)
-        {
+
             InitializeApp();
-        }
+  
     }
     
     public void InitializeApp()
